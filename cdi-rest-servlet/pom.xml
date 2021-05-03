@@ -19,17 +19,49 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-
-
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.apache.camel</groupId>
     <artifactId>camel-example-cdi-rest-servlet</artifactId>
     <name>Camel :: Example :: CDI :: Rest Servlet</name>
     <description>Rest DSL using Servlet with CDI example</description>
+    <version>3.10.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
         <category>Rest</category>
         <title>CDI Rest</title>
+       <jdk.version>1.8</jdk.version>
+        <compiler.fork>false</compiler.fork>
+
+        <camel.version>3.10.0-SNAPSHOT</camel.version> 
+       <!-- Versions -->
+        <arquillian-version>1.6.0.Final</arquillian-version>
+        <asciidoctorj-version>2.1.0</asciidoctorj-version>
+        <cdi-api-1.2-version>1.2</cdi-api-1.2-version>
+        <glassfish-jaxb-runtime-version>${jakarta-jaxb-version}</glassfish-jaxb-runtime-version>
+        <groovy-version>3.0.2</groovy-version>
+        <pax-exam-version>4.13.2</pax-exam-version>
+        <pax-url-aether>2.6.2</pax-url-aether>
+        <jaxb-version>2.3.0</jaxb-version>
+	<maven.compiler.source>1.8</maven.compiler.source> 
+	<maven.compiler.target>1.8</maven.compiler.target>
+        <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
+        <maven-surefire-plugin-version>3.0.0-M4</maven-surefire-plugin-version>
+        <maven-javadoc-plugin-version>3.0.1</maven-javadoc-plugin-version>
+        <exec-maven-plugin-version>1.6.0</exec-maven-plugin-version>
+        <metrics-cdi-version>1.3.3</metrics-cdi-version>
+        <mycila-license-version>3.0</mycila-license-version>
+        <pax-cdi-version>1.0.0</pax-cdi-version>
+        <spring-security-version>5.3.0.RELEASE</spring-security-version>
+        <surefire.version>${maven-surefire-plugin-version}</surefire.version>
+        <tomcat-version>9.0.36</tomcat-version>
+        <woodstox-version>6.0.3</woodstox-version>
+        <xmlunit-version>1.6</xmlunit-version>
+        <derby-version>10.14.2.0</derby-version>
+        <jkube-version>1.0.0</jkube-version>
+        <wsdl4j-version>1.6.3</wsdl4j-version>
+        <fabric8-maven-plugin-version>4.4.1</fabric8-maven-plugin-version>
+        <log4j2-version>2.13.3 </log4j2-version>
     </properties>
 
     <dependencyManagement>
@@ -51,7 +83,7 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>${cdi-api-2.0-version}</version>
+            <version>${cdi-api-1.2-version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -108,102 +140,5 @@
             <version>${log4j2-version}</version>
         </dependency>
 
-        <!-- test -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-            <version>${junit-version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>hamcrest-core</artifactId>
-                    <groupId>org.hamcrest</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>${hamcrest-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <version>${arquillian-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.testenricher</groupId>
-            <artifactId>arquillian-testenricher-resource</artifactId>
-            <version>${arquillian-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-            <artifactId>shrinkwrap-descriptors-depchain</artifactId>
-            <version>${shrinkwrap-descriptors-version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.weld.servlet</groupId>
-            <artifactId>weld-servlet-shaded</artifactId>
-            <version>${weld3-version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-deploy</artifactId>
-            <version>${jetty9-version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>jetty</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-webapp</artifactId>
-                    <version>${jetty9-version}</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-annotations</artifactId>
-                    <version>${jetty9-version}</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-jetty-embedded-9</artifactId>
-                    <version>1.0.0.CR3</version>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.jboss.arquillian.container</groupId>
-                            <artifactId>arquillian-container-spi</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
-
-    <build>
-        <plugins>
-            <!-- allows running this example with mvn jetty:run -->
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty9-version}</version>
-            </plugin>
-        </plugins>
-    </build>
 </project>
