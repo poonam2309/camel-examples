@@ -21,11 +21,6 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.apache.camel.example</groupId>
-        <artifactId>examples</artifactId>
-        <version>3.10.0-SNAPSHOT</version>
-    </parent>
 
     <artifactId>camel-example-cdi-rest-servlet</artifactId>
     <name>Camel :: Example :: CDI :: Rest Servlet</name>
